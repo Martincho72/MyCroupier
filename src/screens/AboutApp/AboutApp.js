@@ -49,9 +49,11 @@ export default function AboutApp() {
       <SafeAreaView style={styles.container}>
         <Header backVisible={false} />
         <View style={styles.body}>
-          <View style={{ flex: 0.5 }}>
+          <View style={styles.headerContainer}>
             <Text style={styles.paragraph}>Sobre la App</Text>
           </View>
+
+          {/* Ajustar la disposición de la imagen con flex */}
           <View style={styles.juanito}>
             <Image
               source={require('../../assets/Juanito.webp')}
@@ -88,15 +90,6 @@ export default function AboutApp() {
               profe!
             </Text>
           </View>
-
-          {!online && (
-            <View
-              style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <Pressable onPress={() => borradoRecords()} style={styles.button}>
-                <Text style={styles.buttonText}>Borrar récords</Text>
-              </Pressable>
-            </View>)
-          }
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -108,24 +101,31 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fcfcfc',
   },
-  body: { flex: 8, padding: 8 },
+  body: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    // Eliminado el flex aquí
+  },
 
   scrollContainer: {
     alignItems: 'center',
     backgroundColor: '#fcfcfc',
+    flexGrow: 1, // Asegura que el contenido crezca según el tamaño de la pantalla
+  },
+  headerContainer: {
+    alignItems: 'center',
+    marginBottom: 20, // Para separar un poco más el encabezado de los siguientes elementos
   },
   paragraph: {
     fontSize: 35,
     fontFamily: 'Merriweather-SemiBold',
     textAlign: 'center',
     marginTop: 2,
-    marginBottom: 5,
   },
   juanito: {
-    flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 5,
+    marginBottom: 15, // Separación entre la imagen y el siguiente contenido
   },
   image: {
     height: 250,

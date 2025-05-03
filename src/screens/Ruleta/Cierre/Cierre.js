@@ -173,7 +173,7 @@ const Cierre = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
         <Header backVisible={false} />
-        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+        <View style={{ flex: 1, justifyContent: 'flex-end', marginTop: 40 }}>
           <Text style={styles.mensaje}>
             {nombre} dice que cierres la AMERICANA 2 {emoji}:
           </Text>
@@ -210,7 +210,7 @@ const Cierre = () => {
             <Text style={styles.headerCellInput}>Introducido</Text>
           </View>
           <FlatList
-            scrollEnabled={false}
+            scrollEnabled={true}
             data={fichas}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (

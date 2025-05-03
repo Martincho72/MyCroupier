@@ -47,13 +47,13 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginHorizontal: 10,
-    marginTop: 35,
+    marginTop: 15,
   },
   logo: {
     width: 60,
     height: 60,
     marginHorizontal: 10,
-    marginTop: 35,
+    marginTop: 15,
     borderRadius: 10
   },
   home: {

@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 8,
     alignItems: 'center',
+    marginTop: 10
   },
   paragraph: {
     fontSize: 35,

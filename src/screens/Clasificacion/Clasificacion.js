@@ -62,24 +62,15 @@ export default function Clasificacion() {
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <SafeAreaView style={styles.container}>
                 <Header backVisible={false} />
-                <View style={{ flex: 1, justifyContent: "flex-end" }}>
+                <View style={{ flex: 1, justifyContent: "flex-end", marginTop: 90 }}> {/* Aumenta el marginTop aquí */}
                     <Text style={styles.title}>CLASIFICACIÓN</Text>
 
                     {!online && <Text style={styles.advisor}>¡Accede con una cuenta para poder ver las clasificaciones!</Text>
                     }
 
                     <View style={styles.sectionContainer}>
-                        <View style={{ flex: 0.5 }}><Text style={styles.sectionText}>Sección:</Text>
-                        </View>
-                        <View style={{
-                            minWidth: 230,
-                            maxWidth: 255,
-                            borderWidth: 2,
-                            borderColor: 'black',
-                            borderRadius: 5,
-                            overflow: 'hidden'
-                        }}>
-
+                        <Text style={styles.sectionText}>Sección:</Text>
+                        <View style={styles.pickerContainer}>
                             <Picker
                                 selectedValue={selectedSection}
                                 style={styles.picker}
@@ -127,7 +118,7 @@ export default function Clasificacion() {
                         />
                     </View>
                 </View>
-                {loading && <LoadingScreen/>}
+                {loading && <LoadingScreen />}
             </SafeAreaView>
         </ScrollView>
     );
@@ -147,6 +138,7 @@ const styles = StyleSheet.create({
         fontSize: 38,
         fontFamily: 'Merriweather-SemiBold',
         textAlign: 'center',
+        marginBottom: 15,
     },
     advisor: {
         flex: 1,
@@ -156,17 +148,24 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     sectionContainer: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
+        flexDirection: 'row', 
+        alignItems: 'center', 
         justifyContent: 'center',
+        marginVertical: 0, 
     },
     sectionText: {
-        flex: 1,
-        textAlignVertical: "center",
-        textAlign: "right",
         fontSize: 25,
         fontFamily: 'Merriweather-Light',
+        marginRight: 10, 
+        textAlign: "right",
+    },
+    pickerContainer: {
+        minWidth: 230,
+        maxWidth: 255,
+        borderWidth: 2,
+        borderColor: 'black',
+        borderRadius: 5,
+        overflow: 'hidden',
     },
     picker: {
         backgroundColor: 'white',

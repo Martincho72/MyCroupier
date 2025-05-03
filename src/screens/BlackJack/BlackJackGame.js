@@ -309,6 +309,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 8,
     alignItems: 'center',
+    marginTop: 45
   },
   paragraph: {
     marginTop: 20,
