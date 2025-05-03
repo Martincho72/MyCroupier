@@ -13,20 +13,19 @@ import {
 import Header from '../../../components/Header';
 
 export default function SeleccionarTabla(props) {
-  const [tablasPorFichas, setTablasPorFichas] = useState([5, 8, 11, 17, 35]);
-  const [tablasPorValor, setTablasPorValor] = useState([
-    1.25, 2.5, 10, 25, 50, 100, 500,
-  ]);
+  const [tablasPorFichas] = useState([5, 8, 11, 17, 35]);
+  const [tablasPorValor] = useState([1.25, 2.5, 10, 25, 50, 100, 500]);
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={{ flex: 1 }}>
-          <Header backVisible={false}/>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboardContainer}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <Header backVisible={false} />
+
           <View style={styles.body}>
-            <View style={{flex: 1, justifyContent: "center", alignItems: "center", padding: 8}}>
+            <View style={styles.section}>
               <Text style={styles.title}>Tablas por fichas:</Text>
               <View style={styles.gridContainer}>
                 {tablasPorFichas.map((tabla, index) => (
@@ -42,7 +41,7 @@ export default function SeleccionarTabla(props) {
               </View>
             </View>
 
-            <View style={{flex: 1}}>
+            <View style={styles.section}>
               <Text style={styles.title}>Tablas por valor:</Text>
               <View style={styles.gridContainer}>
                 {tablasPorValor.map((tabla, index) => (
@@ -58,28 +57,32 @@ export default function SeleccionarTabla(props) {
               </View>
             </View>
           </View>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     backgroundColor: '#fcfcfc',
   },
+  keyboardContainer: {
+    flex: 1,
+  },
   scrollContainer: {
-    alignItems: 'center',
-    flexGrow: 1,
+    paddingBottom: 40,
     backgroundColor: '#fcfcfc',
   },
   body: {
-    flex: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 10
+  },
+  section: {
+    marginVertical: 20,
+    alignItems: 'center',
   },
   title: {
     fontSize: 33,

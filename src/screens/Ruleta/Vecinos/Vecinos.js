@@ -293,12 +293,12 @@ export default function Vecinos() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     backgroundColor: '#fcfcfc',
   },
   body: {
     flex: 8,
     alignItems: 'center',
+    marginTop: 20
   },
   paragraph: {
     fontSize: 33,
@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'black',
     width: 250,
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
     alignItems: 'center',
     marginTop: 25,
