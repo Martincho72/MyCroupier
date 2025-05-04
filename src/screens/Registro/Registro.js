@@ -37,13 +37,13 @@ export default function Registro(props) {
         contrasenya == '' ||
         confirmarContrasenya == ''
       ) {
-        Alert.alert('Campos vacíos', 'Rellene los campos vacíos.');
+        window.alert('Campos vacíos: '+ 'Rellene los campos vacíos.');
         return;
       } else if (!esCorreoValido(correoElectronico)) {
-        Alert.alert("Correo no válido", "Ingrese un correo electrónico válido.");
+        window.alert("Correo no válido: "+"Ingrese un correo electrónico válido.");
         return;
       } else if (contrasenya !== confirmarContrasenya) {
-        Alert.alert('Error Contraseñas', "Las contraseñas no coinciden.");
+        window.alert('Error Contraseñas: '+ "Las contraseñas no coinciden.");
         return;
       }
 
@@ -74,11 +74,11 @@ export default function Registro(props) {
         const resultado = await respuesta.json();
 
         if (!respuesta.ok) {
-          Alert.alert('Error', resultado.message || 'Error Desconocido.');
+          window.alert('Error: '+ resultado.message || 'Error Desconocido.');
           return;
         }
 
-        Alert.alert("Verificar Cuenta", "Revise su correo e ingrese el código en la pantalla de confirmación.");
+        window.alert("Verificar Cuenta: "+ "Revise su correo e ingrese el código en la pantalla de confirmación.");
         props.navigation.navigate("ConfirmarRegistro");
         console.log(resultado);
 
@@ -91,15 +91,15 @@ export default function Registro(props) {
           mensajeError = 'No hay conexión a internet.';
         }
 
-        Alert.alert('Error al registrar el usuario', mensajeError);
-        console.error('Error en la petición:', error);
+        window.alert('Error al registrar el usuario: '+ mensajeError);
+        console.error('Error en la petición: '+ error);
 
       } finally {
         setLoading(false);
       }
     } else {
-      Alert.alert(
-        'Términos y condiciones NO aceptados',
+      window.alert(
+        'Términos y condiciones NO aceptados: '+
         'Acepte la política de privacidad para registrarse.'
       );
     }

@@ -23,7 +23,7 @@ export default function ConfirmarRegistro(props) {
     const url = 'http://54.237.169.52:8080/CroupierAPI/confirmRegister';
 
     if (codigo == null || codigo == '') {
-      Alert.alert('Campo vacío', 'Introduzca el código de 7 dígitos.');
+      window.alert('Campo vacío: '+ 'Introduzca el código de 7 dígitos.');
       return;
     }
 
@@ -51,11 +51,11 @@ export default function ConfirmarRegistro(props) {
       const resultado = await respuesta.json();
 
       if (!respuesta.ok) {
-        Alert.alert('Error verificando el código', 'Número incorrecto');
+        window.alert('Error verificando el código: '+ 'Número incorrecto');
         return;
       }
 
-      Alert.alert('Información del mensaje', resultado.message);
+      window.alert('Información del mensaje: '+ resultado.message);
       console.log(resultado);
       props.navigation.navigate('LogIn');
 
@@ -68,7 +68,7 @@ export default function ConfirmarRegistro(props) {
         mensajeError = 'No hay conexión a internet.';
       }
 
-      Alert.alert('Error al confirmar registro', mensajeError);
+      window.alert('Error al confirmar registro: '+ mensajeError);
       console.error('Error en la petición:', error);
 
     } finally {

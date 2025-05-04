@@ -83,7 +83,7 @@ export default function BlackJackGame() {
 
     if (puntosJugador == 21) {
       if (nuevaBaraja[1].valor != 11 && nuevaBaraja[1].valor != 10) {
-        Alert.alert('Victoria', 'BLACKJACK, que sea así toda la noche 🔥 🐼');
+        window.alert('Victoria: '+ 'BLACKJACK, que sea así toda la noche 🔥 🐼');
         setPuntuacionCroupier(nuevaBaraja[1].valor);
         setRacha((prevRacha) => {
           const nuevaRacha = prevRacha + 1;
@@ -95,10 +95,10 @@ export default function BlackJackGame() {
       } else {
         let puntosCrupier = calcularPuntos([nuevaBaraja[1], nuevaBaraja[3]]);
         if (puntosCrupier == 21) {
-          Alert.alert('Empate', 'DOBLE BLACKJACK, ESTO NO ES COMÚN 🗣🔥');
+          window.alert('Empate: '+'DOBLE BLACKJACK, ESTO NO ES COMÚN 🗣🔥');
           setCartasCroupier([nuevaBaraja[1], nuevaBaraja[3]]);
         } else {
-          Alert.alert('Victoria', 'BLACKJACK, que sea así toda la noche 🔥 🐼');
+          window.alert('Victoria: '+ 'BLACKJACK, que sea así toda la noche 🔥 🐼');
           setRacha((prevRacha) => {
             const nuevaRacha = prevRacha + 1;
             if (nuevaRacha > record) {
@@ -150,7 +150,7 @@ export default function BlackJackGame() {
       setJugadorSePlanta(true);
       setPartidaActiva(false);
       setRacha(0);
-      Alert.alert('Derrota', '¿Te has pasado un poco no crees? 🐼');
+      window.alert('Derrota: '+ '¿Te has pasado un poco no crees? 🐼');
     }
     setBaraja(baraja.slice(1));
   };
@@ -169,7 +169,7 @@ export default function BlackJackGame() {
         setBaraja(barajaTemp);
 
         if (puntosCrupier > 21 || puntuacionJugador > puntosCrupier) {
-          Alert.alert('Victoria', '¿Serás capaz de ganar otra vez? 🐼');
+          window.alert('Victoria: '+ '¿Serás capaz de ganar otra vez? 🐼');
           setRacha((prevRacha) => {
             const nuevaRacha = prevRacha + 1;
             if (nuevaRacha > record) {
@@ -179,18 +179,18 @@ export default function BlackJackGame() {
           });
         } else if (cartasCrupierTemp.length == 2 && puntosCrupier == 21) {
           setRacha(0);
-          Alert.alert(
-            'Derrota',
+          window.alert(
+            'Derrota: '+
             'BLACKJACK de la banca, este mes no hay propinas 🐼'
           );
         } else if (puntuacionJugador == puntosCrupier) {
-          Alert.alert(
-            'Empate',
+          window.alert(
+            'Empate: '+
             'Has tenido suerte, la próxima no tendrás tanta suerte 🐼'
           );
         } else {
           setRacha(0);
-          Alert.alert('Derrota', 'La banca siempre gana 🐼');
+          window.alert('Derrota: '+ 'La banca siempre gana 🐼');
         }
         setPartidaActiva(false);
         return;

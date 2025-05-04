@@ -163,9 +163,9 @@ const Cierre = () => {
       }
       let message = devolverMensaje(nombre, tiempo);
       setCorriendo(false);
-      Alert.alert(nombre + ' dice:', message);
+      window.alert(nombre + ' dice: ' + message);
     } else {
-      Alert.alert('Error', 'Revisa los campos en rojo');
+      window.alert('Error: '+ 'Revisa los campos en rojo');
     }
   };
 

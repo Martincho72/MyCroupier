@@ -28,12 +28,12 @@ export default function RecuperarContrasenya(props) {
     const url = 'http://54.237.169.52:8080/CroupierAPI/forgottenPassword';
 
     if (!correo) {
-      Alert.alert('Campo vacío', 'Introduzca el correo electrónico asociado a su cuenta.');
+      window.alert('Campo vacío: '+ 'Introduzca el correo electrónico asociado a su cuenta.');
       return;
     }
 
     if (!esCorreoValido(correo)) {
-      Alert.alert("Correo no válido", "Ingrese un correo electrónico válido.");
+      window.alert("Correo no válido: "+ "Ingrese un correo electrónico válido.");
       return;
     }
 
@@ -61,11 +61,11 @@ export default function RecuperarContrasenya(props) {
       const resultado = await respuesta.json();
 
       if (!respuesta.ok) {
-        Alert.alert('Error', resultado.message || 'Error Desconocido.');
+        window.alert('Error: '+ resultado.message || 'Error Desconocido.');
         return;
       }
 
-      Alert.alert('Nueva contraseña', resultado.message);
+      window.alert('Nueva contraseña: '+ resultado.message);
       console.log(resultado);
       props.navigation.navigate('LogIn');
 
@@ -78,7 +78,7 @@ export default function RecuperarContrasenya(props) {
         mensajeError = 'No hay conexión a internet.';
       }
 
-      Alert.alert('Error al recuperar contraseña', mensajeError);
+      window.alert('Error al recuperar contraseña: '+ mensajeError);
       console.error('Error en la petición:', error);
 
     } finally {

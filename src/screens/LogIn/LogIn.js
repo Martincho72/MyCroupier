@@ -27,7 +27,7 @@ export default function LogIn(props) {
     const url = 'http://54.237.169.52:8080/CroupierAPI/login';
 
     if (!usuario || !contrasenya) {
-      Alert.alert('Campos vacíos', 'Rellena los campos vacíos.');
+      window.alert('Campos vacíos: '+ 'Rellena los campos vacíos.');
       return;
     }
 
@@ -56,7 +56,7 @@ export default function LogIn(props) {
       const resultado = await respuesta.json();
 
       if (!respuesta.ok) {
-        Alert.alert('Error', resultado.message || 'Error Desconocido.');
+        window.alert('Error: '+ resultado.message || 'Error Desconocido.');
         return;
       }
 
@@ -75,7 +75,7 @@ export default function LogIn(props) {
         mensajeError = 'No hay conexión a internet.';
       }
 
-      Alert.alert('Error al iniciar sesión', mensajeError);
+      window.alert('Error al iniciar sesión: '+ mensajeError);
       console.error('Error en la petición:', error);
     } finally {
       setLoading(false);
