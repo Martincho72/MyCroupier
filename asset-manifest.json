@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/MyCroupier/static/js/main.b705029d.js",
+    "main.js": "/MyCroupier/static/js/main.27e59e7e.js",
     "static/js/686.99b02652.js": "/MyCroupier/static/js/686.99b02652.js",
     "static/media/logoV2.webp": "/MyCroupier/static/media/logoV2.6d1545a556a897997065.webp",
     "static/media/Ionicons.ttf": "/MyCroupier/static/media/Ionicons.9b6b1954a5eb6efeaf11.ttf",
@@ -67,11 +67,11 @@
     "static/media/izquierda.webp": "/MyCroupier/static/media/izquierda.1b65c49b0a09f08d3715.webp",
     "manifest.json": "/MyCroupier/manifest.json",
     "serve.json": "/MyCroupier/serve.json",
-    "main.b705029d.js.map": "/MyCroupier/static/js/main.b705029d.js.map",
+    "main.27e59e7e.js.map": "/MyCroupier/static/js/main.27e59e7e.js.map",
     "686.99b02652.js.map": "/MyCroupier/static/js/686.99b02652.js.map"
   },
   "entrypoints": [
     "static/js/686.99b02652.js",
-    "static/js/main.b705029d.js"
+    "static/js/main.27e59e7e.js"
   ]
 }
