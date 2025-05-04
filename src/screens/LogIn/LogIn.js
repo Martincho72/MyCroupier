@@ -7,10 +7,9 @@ import {
   Image,
   TextInput,
   ScrollView,
-  TouchableWithoutFeedback,
   KeyboardAvoidingView,
-  Keyboard,
-  Alert
+  Platform,
+  Alert,
 } from 'react-native';
 import { useState, useContext } from 'react';
 
@@ -63,10 +62,10 @@ export default function LogIn(props) {
 
       console.log(resultado);
       setInformacionUsuario(resultado);
-      setOnline(true)
+      setOnline(true);
       props.navigation.navigate('MainMenu');
-      setUsuario("");
-      setContrasenya("");
+      setUsuario('');
+      setContrasenya('');
     } catch (error) {
       let mensajeError = 'Hubo un problema al conectar con el servidor.';
 
@@ -85,74 +84,77 @@ export default function LogIn(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
+      >
         <ScrollView
-          contentContainerStyle={[styles.scrollContainer, { minHeight: '100%' }]}
-          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="always"
         >
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View>
-              <View style={styles.containerWelcome}>
-                <Text style={styles.paragraph}>¡Bienvenido!</Text>
-                <Image
-                  style={styles.logo}
-                  source={require('../../assets/logoV2.webp')}
-                />
-              </View>
+          <View style={styles.containerWelcome}>
+            <Text style={styles.paragraph}>¡Bienvenido!</Text>
+            <Image
+              style={styles.logo}
+              source={require('../../assets/logoV2.webp')}
+            />
+          </View>
 
-              <View style={{ alignItems: "center" }}>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.label}>Usuario</Text>
-                  <TextInput
-                    style={styles.input}
-                    value={usuario}
-                    onChangeText={(text) => setUsuario(text.replace(/\s/g, ''))}
-                    placeholder="Juanito"
-                    placeholderTextColor="#888"
-                  />
-                </View>
-
-                <View style={styles.inputContainer}>
-                  <Text style={styles.label}>Contraseña</Text>
-                  <TextInput
-                    style={styles.input}
-                    secureTextEntry
-                    value={contrasenya}
-                    onChangeText={(text) => setContrasenya(text.replace(/\s/g, ''))}
-                    placeholder="••••••••"
-                    placeholderTextColor="#888"
-                  />
-                </View>
-
-                <Pressable
-                  onPress={() => {
-                    setOnline(false);
-                    props.navigation.navigate('MainMenu');
-                  }}
-                  style={styles.buttonRegistrar}>
-                  <Text style={styles.textRegistrar}>Acceder Sin Cuenta</Text>
-                </Pressable>
-
-                <Pressable
-                  onPress={() => enviarDatos()}
-                  style={styles.button}>
-                  <Text style={styles.buttonText}>Iniciar Sesión</Text>
-                </Pressable>
-
-                <Pressable
-                  onPress={() => props.navigation.navigate('StackRegistro')}
-                  style={styles.buttonRegistrar}>
-                  <Text style={styles.textRegistrar}>Registrarse</Text>
-                </Pressable>
-
-                <Pressable
-                  onPress={() => props.navigation.navigate('RecuperarContrasenya')}
-                  style={styles.buttonRegistrar}>
-                  <Text style={styles.textRegistrar}>Recuperar Contraseña</Text>
-                </Pressable>
-              </View>
+          <View style={{ alignItems: 'center' }}>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Usuario</Text>
+              <TextInput
+                style={styles.input}
+                value={usuario}
+                onChangeText={(text) => setUsuario(text.replace(/\s/g, ''))}
+                placeholder="Juanito"
+                placeholderTextColor="#888"
+              />
             </View>
-          </TouchableWithoutFeedback>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Contraseña</Text>
+              <TextInput
+                style={styles.input}
+                secureTextEntry
+                value={contrasenya}
+                onChangeText={(text) =>
+                  setContrasenya(text.replace(/\s/g, ''))
+                }
+                placeholder="••••••••"
+                placeholderTextColor="#888"
+              />
+            </View>
+
+            <Pressable
+              onPress={() => {
+                setOnline(false);
+                props.navigation.navigate('MainMenu');
+              }}
+              style={styles.buttonRegistrar}
+            >
+              <Text style={styles.textRegistrar}>Acceder Sin Cuenta</Text>
+            </Pressable>
+
+            <Pressable onPress={enviarDatos} style={styles.button}>
+              <Text style={styles.buttonText}>Iniciar Sesión</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={() => props.navigation.navigate('StackRegistro')}
+              style={styles.buttonRegistrar}
+            >
+              <Text style={styles.textRegistrar}>Registrarse</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={() => props.navigation.navigate('RecuperarContrasenya')}
+              style={styles.buttonRegistrar}
+            >
+              <Text style={styles.textRegistrar}>Recuperar Contraseña</Text>
+            </Pressable>
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
       {loading && <LoadingScreen />}
@@ -168,42 +170,17 @@ const styles = StyleSheet.create({
   scrollContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 20,
+    paddingVertical: 30,
+    paddingHorizontal: 20,
   },
   containerWelcome: {
     alignItems: 'center',
-    justifyContent: "flex-end",
-    padding: 10
+    marginBottom: 20,
   },
   paragraph: {
     fontSize: 45,
     textAlign: 'center',
     fontFamily: 'Merriweather-SemiBold',
-  },
-  button: {
-    backgroundColor: 'black',
-    width: 300,
-    padding: 12,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  buttonRegistrar: {
-    backgroundColor: '#fcfcfc',
-    borderRadius: 10,
-    alignItems: 'center',
-    margin: 8,
-  },
-  textRegistrar: {
-    color: 'black',
-    fontSize: 25,
-    fontFamily: 'Merriweather-Light',
-    textDecorationLine: "underline",
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 23,
-    fontFamily: 'Merriweather-Light',
   },
   logo: {
     height: 250,
@@ -232,5 +209,30 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     color: '#000',
     backgroundColor: '#fff',
+  },
+  button: {
+    backgroundColor: 'black',
+    width: 300,
+    padding: 12,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 23,
+    fontFamily: 'Merriweather-Light',
+  },
+  buttonRegistrar: {
+    backgroundColor: '#fcfcfc',
+    borderRadius: 10,
+    alignItems: 'center',
+    margin: 8,
+  },
+  textRegistrar: {
+    color: 'black',
+    fontSize: 25,
+    fontFamily: 'Merriweather-Light',
+    textDecorationLine: 'underline',
   },
 });

@@ -9,9 +9,8 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Alert
+  Alert,
+  Image
 } from 'react-native';
 import { useState } from 'react';
 import Header from '../../components/Header';
@@ -59,7 +58,7 @@ export default function Registro(props) {
 
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 25000); // 25 segundos
+        const timeoutId = setTimeout(() => controller.abort(), 25000);
 
         const respuesta = await fetch(url, {
           method: 'POST',
@@ -106,23 +105,23 @@ export default function Registro(props) {
     }
   };
 
-
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <SafeAreaView style={styles.container}>
+
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
+      >
         <ScrollView
           contentContainerStyle={styles.scrollContainer}
           keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
         >
-          <SafeAreaView style={styles.container}>
-            <Header homeVisible={false} />
+          <Header homeVisible={false} />
 
-            <View style={styles.containerWelcome}>
-              <Text style={styles.paragraph}>REGISTRO</Text>
-            </View>
+          <View style={styles.content}>
+            <Text style={styles.paragraph}>REGISTRO</Text>
 
             <View style={styles.formContainer}>
               <View style={styles.inputGroup}>
@@ -133,6 +132,7 @@ export default function Registro(props) {
                   onChangeText={(text) => setUsuario(text.replace(/\s/g, ''))}
                   placeholder="Juanito"
                   placeholderTextColor="#888"
+                  autoCapitalize="none"
                   returnKeyType="next"
                 />
               </View>
@@ -146,6 +146,7 @@ export default function Registro(props) {
                   placeholder="juanito@correo.com"
                   placeholderTextColor="#888"
                   keyboardType="email-address"
+                  autoCapitalize="none"
                   returnKeyType="next"
                 />
               </View>
@@ -154,8 +155,8 @@ export default function Registro(props) {
                 <Text style={styles.label}>Contraseña</Text>
                 <TextInput
                   style={styles.input}
-                  value={contrasenya}
                   secureTextEntry
+                  value={contrasenya}
                   onChangeText={(text) => setContrasenya(text.replace(/\s/g, ''))}
                   placeholder="Escriba su contraseña"
                   placeholderTextColor="#888"
@@ -167,8 +168,8 @@ export default function Registro(props) {
                 <Text style={styles.label}>Confirmar Contraseña</Text>
                 <TextInput
                   style={styles.input}
-                  value={confirmarContrasenya}
                   secureTextEntry
+                  value={confirmarContrasenya}
                   onChangeText={(text) => setConfirmarContrasenya(text.replace(/\s/g, ''))}
                   placeholder="Repita su contraseña"
                   placeholderTextColor="#888"
@@ -197,8 +198,9 @@ export default function Registro(props) {
               </Pressable>
 
               <Pressable
-                onPress={() => enviarDatos()}
+                onPress={enviarDatos}
                 style={styles.button}
+                unstable_pressDelay={75}
               >
                 <Text style={styles.buttonText}>Registrarse</Text>
               </Pressable>
@@ -206,15 +208,17 @@ export default function Registro(props) {
               <Pressable
                 onPress={() => props.navigation.navigate('ConfirmarRegistro')}
                 style={styles.button}
+                unstable_pressDelay={75}
               >
                 <Text style={styles.buttonText}>Ingresar código de confirmación</Text>
               </Pressable>
             </View>
-          </SafeAreaView>
+          </View>
         </ScrollView>
-      </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+
       {loading && <LoadingScreen />}
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
@@ -224,22 +228,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#fcfcfc',
   },
   scrollContainer: {
-    flexGrow: 1,
+    paddingBottom: 20,
+    ...Platform.select({
+      web: {
+        minHeight: 'calc(100vh - 100px)'
+      }
+    })
   },
-  containerWelcome: {
-    alignItems: 'center',
-    marginVertical: 5,
+  content: {
+    paddingHorizontal: 20,
+    paddingTop: 10,
   },
   paragraph: {
     fontSize: 45,
     textAlign: 'center',
     fontFamily: 'Merriweather-SemiBold',
+    marginBottom: 15,
   },
   formContainer: {
     width: '100%',
     maxWidth: 400,
     alignSelf: 'center',
-    paddingHorizontal: 20,
   },
   inputGroup: {
     marginBottom: 20,
@@ -314,16 +323,5 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontFamily: 'Merriweather-SemiBold',
-  },
-  secondaryButton: {
-    width: '100%',
-    padding: 10,
-    alignItems: 'center',
-  },
-  secondaryButtonText: {
-    color: 'black',
-    fontSize: 16,
-    fontFamily: 'Merriweather-Light',
-    textDecorationLine: "underline"
-  },
+  }
 });

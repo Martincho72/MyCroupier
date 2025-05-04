@@ -9,8 +9,6 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
   Alert
 } from 'react-native';
 import { useState } from 'react';
@@ -78,54 +76,52 @@ export default function ConfirmarRegistro(props) {
     }
   };
 
-
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
+      >
         <ScrollView
           contentContainerStyle={styles.scrollContainer}
-          keyboardShouldPersistTaps="handled"
+          keyboardShouldPersistTaps="always"
         >
-          <SafeAreaView style={styles.container}>
-            <Header homeVisible={false} />
+          <Header homeVisible={false} />
 
-            <View style={styles.contentContainer}>
-              <Text style={styles.title}>CONFIRMAR REGISTRO</Text>
+          <View style={styles.contentContainer}>
+            <Text style={styles.title}>CONFIRMAR REGISTRO</Text>
 
-              <Image
-                style={styles.logo}
-                source={require('../../assets/logoV2.webp')}
+            <Image
+              style={styles.logo}
+              source={require('../../assets/logoV2.webp')}
+            />
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Código de verificación</Text>
+              <TextInput
+                style={styles.input}
+                value={codigo}
+                onChangeText={setCodigo}
+                placeholder="Ingrese el código de 7 dígitos"
+                placeholderTextColor="#888"
+                keyboardType="number-pad"
+                maxLength={7}
+                returnKeyType="done"
               />
-
-              <View style={styles.inputContainer}>
-                <Text style={styles.label}>Código de verificación</Text>
-                <TextInput
-                  style={styles.input}
-                  value={codigo}
-                  onChangeText={setCodigo}
-                  placeholder="Ingrese el código de 7 dígitos"
-                  placeholderTextColor="#888"
-                  keyboardType="number-pad"
-                  maxLength={7}
-                  returnKeyType="done"
-                />
-              </View>
-
-              <Pressable
-                onPress={() => confRegistro()}
-                style={styles.button}
-              >
-                <Text style={styles.buttonText}>Confirmar</Text>
-              </Pressable>
             </View>
-          </SafeAreaView>
-          {loading && <LoadingScreen />}
+
+            <Pressable
+              onPress={confRegistro}
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>Confirmar</Text>
+            </Pressable>
+          </View>
         </ScrollView>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+      {loading && <LoadingScreen />}
+    </SafeAreaView>
   );
 }
 
@@ -139,7 +135,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   contentContainer: {
-    flex: 3,
+    flex: 6,
     width: '100%',
     alignItems: 'center',
     paddingHorizontal: 20,

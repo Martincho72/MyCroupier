@@ -9,8 +9,6 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
   Alert
 } from 'react-native';
 import { useState } from 'react';
@@ -88,52 +86,55 @@ export default function RecuperarContrasenya(props) {
     }
   };
 
-
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <SafeAreaView style={styles.container}>
+
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
+      >
         <ScrollView
           contentContainerStyle={styles.scrollContainer}
-          keyboardShouldPersistTaps="handled"
+          keyboardShouldPersistTaps="always"
+          showsVerticalScrollIndicator={false}
         >
-          <SafeAreaView style={styles.container}>
-            <Header homeVisible={false} />
+          <Header homeVisible={false} />
 
-            <View style={styles.contentContainer}>
-              <Text style={styles.title}>RECUPERAR CONTRASEÑA</Text>
+          <View style={styles.contentContainer}>
+            <Text style={styles.title}>RECUPERAR CONTRASEÑA</Text>
 
-              <Image
-                style={styles.logo}
-                source={require('../../assets/logoV2.webp')}
+            <Image
+              style={styles.logo}
+              source={require('../../assets/logoV2.webp')}
+            />
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Correo Electrónico</Text>
+              <TextInput
+                style={styles.input}
+                value={correo}
+                onChangeText={setCorreo}
+                placeholder="Escriba su correo electrónico"
+                placeholderTextColor="#888"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                returnKeyType="done"
               />
-
-              <View style={styles.inputContainer}>
-                <Text style={styles.label}>Correo Electrónico</Text>
-                <TextInput
-                  style={styles.input}
-                  value={correo}
-                  onChangeText={setCorreo}
-                  placeholder="Escriba su correo electrónico"
-                  placeholderTextColor="#888"
-                  returnKeyType="done"
-                />
-              </View>
-
-              <Pressable
-                onPress={() => recuperarContrasenya()}
-                style={styles.button}
-              >
-                <Text style={styles.buttonText}>Recuperar Contraseña</Text>
-              </Pressable>
             </View>
-          </SafeAreaView>
-          {loading && <LoadingScreen />}
+
+            <Pressable
+              onPress={recuperarContrasenya}
+              style={styles.button}
+              unstable_pressDelay={75}
+            >
+              <Text style={styles.buttonText}>Recuperar Contraseña</Text>
+            </Pressable>
+          </View>
         </ScrollView>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+      {loading && <LoadingScreen />}
+    </SafeAreaView>
   );
 }
 
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   contentContainer: {
-    flex: 3,
+    flex: 6,
     width: '100%',
     alignItems: 'center',
     paddingHorizontal: 20,
