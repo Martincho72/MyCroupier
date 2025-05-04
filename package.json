@@ -1,7 +1,7 @@
 {
   "license": "0BSD",
   "main": "index.js",
-  "homepage": "https://martincho72.github.io/PRUEBITA",
+  "homepage": "https://martincho72.github.io/MyCroupier",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
