@@ -26,7 +26,7 @@ export default function Tabla({ route }) {
 
   const [resultadoCorrecto, setResultadoCorrecto] = useState(0);
   const [numeroMultiplicado, setNumeroMultiplicado] = useState(0);
-  const [respuestaUsuario, setRespuestaUsuario] = useState(0);
+  const [respuestaUsuario, setRespuestaUsuario] = useState('');
   const [textoComprobar, setTextoComprobar] = useState('');
   const [colorComprobar, setColorComprobar] = useState('');
   const [mostrarRespuesta, setMostrarRespuesta] = useState(false);
@@ -62,8 +62,8 @@ export default function Tabla({ route }) {
   };
 
   const verificarRespuesta = () => {
-    if (respuestaUsuario == resultadoCorrecto) {
-      setRespuestaUsuario(0);
+    if (parseFloat(respuestaUsuario) === resultadoCorrecto) {
+      setRespuestaUsuario('');
       setMostrarRespuesta(false);
       setTextoComprobar('¡Correcto!');
       setColorComprobar('green');

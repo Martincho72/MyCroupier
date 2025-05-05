@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import Tablas from './Tablas/TablasStack';
 import Zonas from './Zonas/Zonas';
 import Vecinos from './Vecinos/Vecinos';

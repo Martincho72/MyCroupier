@@ -83,27 +83,27 @@ export default function BlackJackGame() {
 
     if (puntosJugador == 21) {
       if (nuevaBaraja[1].valor != 11 && nuevaBaraja[1].valor != 10) {
-        window.alert('Victoria: '+ 'BLACKJACK, que sea así toda la noche 🔥 🐼');
         setPuntuacionCroupier(nuevaBaraja[1].valor);
         setRacha((prevRacha) => {
           const nuevaRacha = prevRacha + 1;
           if (nuevaRacha > record) {
             setRecord(nuevaRacha);
           }
+          window.alert('Victoria: '+ 'BLACKJACK, que sea así toda la noche 🔥 🐼');
           return nuevaRacha;
         });
       } else {
         let puntosCrupier = calcularPuntos([nuevaBaraja[1], nuevaBaraja[3]]);
         if (puntosCrupier == 21) {
-          window.alert('Empate: '+'DOBLE BLACKJACK, ESTO NO ES COMÚN 🗣🔥');
           setCartasCroupier([nuevaBaraja[1], nuevaBaraja[3]]);
+          window.alert('Empate: '+'DOBLE BLACKJACK, ESTO NO ES COMÚN 🗣🔥');
         } else {
-          window.alert('Victoria: '+ 'BLACKJACK, que sea así toda la noche 🔥 🐼');
           setRacha((prevRacha) => {
             const nuevaRacha = prevRacha + 1;
             if (nuevaRacha > record) {
               setRecord(nuevaRacha);
             }
+            window.alert('Victoria: '+ 'BLACKJACK, que sea así toda la noche 🔥 🐼');
             return nuevaRacha;
           });
           setCartasCroupier([nuevaBaraja[1], nuevaBaraja[3]]);
