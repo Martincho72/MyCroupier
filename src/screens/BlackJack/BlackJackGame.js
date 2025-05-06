@@ -89,21 +89,27 @@ export default function BlackJackGame() {
           if (nuevaRacha > record) {
             setRecord(nuevaRacha);
           }
-          window.alert('Victoria: '+ 'BLACKJACK, que sea así toda la noche 🔥 🐼');
+          setTimeout(() => {
+            window.alert('Victoria: ' + 'BLACKJACK, que sea así toda la noche 🔥 🐼');
+          }, 100);          
           return nuevaRacha;
         });
       } else {
         let puntosCrupier = calcularPuntos([nuevaBaraja[1], nuevaBaraja[3]]);
         if (puntosCrupier == 21) {
           setCartasCroupier([nuevaBaraja[1], nuevaBaraja[3]]);
-          window.alert('Empate: '+'DOBLE BLACKJACK, ESTO NO ES COMÚN 🗣🔥');
+          setTimeout(() => {
+            window.alert('Empate: '+'DOBLE BLACKJACK, ESTO NO ES COMÚN 🗣🔥');
+          }, 100);
         } else {
           setRacha((prevRacha) => {
             const nuevaRacha = prevRacha + 1;
             if (nuevaRacha > record) {
               setRecord(nuevaRacha);
             }
-            window.alert('Victoria: '+ 'BLACKJACK, que sea así toda la noche 🔥 🐼');
+            setTimeout(() => {
+              window.alert('Victoria: '+ 'BLACKJACK, que sea así toda la noche 🔥 🐼');
+            }, 100);
             return nuevaRacha;
           });
           setCartasCroupier([nuevaBaraja[1], nuevaBaraja[3]]);
@@ -150,7 +156,9 @@ export default function BlackJackGame() {
       setJugadorSePlanta(true);
       setPartidaActiva(false);
       setRacha(0);
-      window.alert('Derrota: '+ 'Te has pasado un poco ¿No crees? 🐼');
+      setTimeout(() => {
+        window.alert('Derrota: '+ 'Te has pasado un poco ¿No crees? 🐼');
+      }, 100);
     }
     setBaraja(baraja.slice(1));
   };
