@@ -91,7 +91,7 @@ export default function BlackJackGame() {
           }
           setTimeout(() => {
             window.alert('Victoria: ' + 'BLACKJACK, que sea así toda la noche 🔥 🐼');
-          }, 200);          
+          }, 300);          
           return nuevaRacha;
         });
       } else {
@@ -100,7 +100,7 @@ export default function BlackJackGame() {
           setCartasCroupier([nuevaBaraja[1], nuevaBaraja[3]]);
           setTimeout(() => {
             window.alert('Empate: '+'DOBLE BLACKJACK, ESTO NO ES COMÚN 🗣🔥');
-          }, 200);
+          }, 300);
         } else {
           setRacha((prevRacha) => {
             const nuevaRacha = prevRacha + 1;
@@ -109,7 +109,7 @@ export default function BlackJackGame() {
             }
             setTimeout(() => {
               window.alert('Victoria: '+ 'BLACKJACK, que sea así toda la noche 🔥 🐼');
-            }, 200);
+            }, 300);
             return nuevaRacha;
           });
           setCartasCroupier([nuevaBaraja[1], nuevaBaraja[3]]);
@@ -158,7 +158,7 @@ export default function BlackJackGame() {
       setRacha(0);
       setTimeout(() => {
         window.alert('Derrota: '+ 'Te has pasado un poco ¿No crees? 🐼');
-      }, 200);
+      }, 300);
     }
     setBaraja(baraja.slice(1));
   };
