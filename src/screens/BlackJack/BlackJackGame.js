@@ -54,7 +54,7 @@ export default function BlackJackGame() {
       cargarRecord(informacionUsuario.token, nombreRecord, informacionUsuario.id_usuario, setRecord);
     } else {
       cargarDato(nombreRecord, setRecord)
-    }
+    }    
   }, []);
 
   useEffect(() => {
@@ -65,19 +65,6 @@ export default function BlackJackGame() {
     }
   }, [record]);
 
-  useEffect(() => {
-    Object.values(IMAGENES_CARTAS).forEach((src) => {
-      const realSrc =
-        typeof src === "string"
-          ? src
-          : src?.uri || src?.default || "";
-  
-      if (realSrc) {
-        const img = new Image();
-        img.src = realSrc;
-      }
-    });
-  }, []);
 
   useEffect(() => {
     if (mensajeFinal) {
