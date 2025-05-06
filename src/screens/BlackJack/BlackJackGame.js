@@ -47,6 +47,7 @@ export default function BlackJackGame() {
   const [racha, setRacha] = useState(0);
   const [record, setRecord] = useState(0);
   const [partidaActiva, setPartidaActiva] = useState(false);
+  const [mensajeFinal, setMensajeFinal] = useState(null);
 
   useEffect(() => {
     if (online) {
@@ -63,6 +64,16 @@ export default function BlackJackGame() {
       guardarDato(nombreRecord, record);
     }
   }, [record]);
+
+  useEffect(() => {
+    if (mensajeFinal) {
+      const timeout = setTimeout(() => {
+        window.alert(mensajeFinal);
+        setMensajeFinal(null);
+      }, 100); 
+      return () => clearTimeout(timeout);
+    }
+  }, [mensajeFinal]);
 
   const generarBaraja = () => {
     let deck = [];
@@ -89,27 +100,21 @@ export default function BlackJackGame() {
           if (nuevaRacha > record) {
             setRecord(nuevaRacha);
           }
-          setTimeout(() => {
-            window.alert('Victoria: ' + 'BLACKJACK, que sea así toda la noche 🔥 🐼');
-          }, 300);          
+            setMensajeFinal('Victoria: ' + 'BLACKJACK, que sea así toda la noche 🔥 🐼');
           return nuevaRacha;
         });
       } else {
         let puntosCrupier = calcularPuntos([nuevaBaraja[1], nuevaBaraja[3]]);
         if (puntosCrupier == 21) {
           setCartasCroupier([nuevaBaraja[1], nuevaBaraja[3]]);
-          setTimeout(() => {
-            window.alert('Empate: '+'DOBLE BLACKJACK, ESTO NO ES COMÚN 🗣🔥');
-          }, 300);
+            setMensajeFinal('Empate: '+'DOBLE BLACKJACK, ESTO NO ES COMÚN 🗣🔥');
         } else {
           setRacha((prevRacha) => {
             const nuevaRacha = prevRacha + 1;
             if (nuevaRacha > record) {
               setRecord(nuevaRacha);
             }
-            setTimeout(() => {
-              window.alert('Victoria: '+ 'BLACKJACK, que sea así toda la noche 🔥 🐼');
-            }, 300);
+              setMensajeFinal('Victoria: '+ 'BLACKJACK, que sea así toda la noche 🔥 🐼');
             return nuevaRacha;
           });
           setCartasCroupier([nuevaBaraja[1], nuevaBaraja[3]]);
@@ -156,9 +161,7 @@ export default function BlackJackGame() {
       setJugadorSePlanta(true);
       setPartidaActiva(false);
       setRacha(0);
-      setTimeout(() => {
-        window.alert('Derrota: '+ 'Te has pasado un poco ¿No crees? 🐼');
-      }, 300);
+      setMensajeFinal('Derrota: '+ 'Te has pasado un poco ¿No crees? 🐼');
     }
     setBaraja(baraja.slice(1));
   };
@@ -177,7 +180,7 @@ export default function BlackJackGame() {
         setBaraja(barajaTemp);
 
         if (puntosCrupier > 21 || puntuacionJugador > puntosCrupier) {
-          window.alert('Victoria: '+ '¿Serás capaz de ganar otra vez? 🐼');
+          setMensajeFinal('Victoria: '+ '¿Serás capaz de ganar otra vez? 🐼');
           setRacha((prevRacha) => {
             const nuevaRacha = prevRacha + 1;
             if (nuevaRacha > record) {
@@ -187,18 +190,18 @@ export default function BlackJackGame() {
           });
         } else if (cartasCrupierTemp.length == 2 && puntosCrupier == 21) {
           setRacha(0);
-          window.alert(
+          setMensajeFinal(
             'Derrota: '+
             'BLACKJACK de la banca, este mes no hay propinas 🐼'
           );
         } else if (puntuacionJugador == puntosCrupier) {
-          window.alert(
+          setMensajeFinal(
             'Empate: '+
             'Has tenido suerte, la próxima no tendrás tanta suerte 🐼'
           );
         } else {
           setRacha(0);
-          window.alert('Derrota: '+ 'La banca siempre gana 🐼');
+          setMensajeFinal('Derrota: '+ 'La banca siempre gana 🐼');
         }
         setPartidaActiva(false);
         return;
