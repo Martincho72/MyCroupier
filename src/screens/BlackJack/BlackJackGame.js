@@ -150,7 +150,9 @@ export default function BlackJackGame() {
       setJugadorSePlanta(true);
       setPartidaActiva(false);
       setRacha(0);
-      window.alert('Derrota: '+ '¿Te has pasado un poco no crees? 🐼');
+      setTimeout(() => {
+        window.alert('Derrota: '+ '¿Te has pasado un poco no crees? 🐼');
+      }, 100);
     }
     setBaraja(baraja.slice(1));
   };
