@@ -71,7 +71,7 @@ export default function BlackJackGame() {
       const timeout = setTimeout(() => {
         window.alert(mensajeFinal);
         setMensajeFinal(null);
-      }, 400); 
+      }, 410); 
       return () => clearTimeout(timeout);
     }
   }, [mensajeFinal]);
