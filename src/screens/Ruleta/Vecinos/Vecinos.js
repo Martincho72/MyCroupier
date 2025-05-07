@@ -228,7 +228,17 @@ export default function Vecinos() {
             {vecinos.map((vecino, index) => (
               <TextInput
                 key={index}
-                style={styles.input}
+                style={[
+                  styles.input,
+                  {
+                    backgroundColor:
+                      vecino.correcto === INCORRECTO
+                        ? 'red'
+                        : vecino.correcto === CORRECTO
+                          ? 'green'
+                          : 'black',
+                  },
+                ]}
                 keyboardType="number-pad"
                 value={vecino.valor !== null ? vecino.valor.toString() : ''}
                 maxLength={2}
