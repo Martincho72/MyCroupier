@@ -107,7 +107,7 @@ export default function Tabla({ route }) {
         <View style={{ flex: 0.7 }}>
           <TextInput
             style={styles.input}
-            keyboardType="number-pad"
+            keyboardType="decimal-pad"
             value={respuestaUsuario}
             onChangeText={(texto) => setRespuestaUsuario(texto.replace(',', '.'))}
             placeholder="Respuesta"
