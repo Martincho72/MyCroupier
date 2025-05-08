@@ -223,7 +223,7 @@ const Cierre = () => {
                       styles.input,
                       { borderColor: bordes[item.valor] || '#000' },
                     ]}
-                    keyboardType="number-pad"
+                    keyboardType="decimal-pad"
                     placeholderTextColor="#888"
                     value={valoresIntroducidos[item.valor] || ''}
                     onChangeText={(text) =>
@@ -246,7 +246,7 @@ const Cierre = () => {
                   styles.input,
                   { borderColor: bordes['total'] || '#000' },
                 ]}
-                keyboardType="numeric"
+                keyboardType="decimal-pad"
                 value={respuestaTotal}
                 onChangeText={(respuestaTotal) =>
                   setRespuestaTotal(respuestaTotal)
