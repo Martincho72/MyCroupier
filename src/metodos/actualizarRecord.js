@@ -1,5 +1,5 @@
 export const actualizarRecord = async (nombreR, id_usu, record, tok) => {
-  const url = 'http://54.237.169.52:8080/CroupierAPI/saveRecord';
+  const url = 'https://api.mycroupier.duckdns.org/CroupierAPI/saveRecord';
 
   const datos = {
     nombreRecord: nombreR,

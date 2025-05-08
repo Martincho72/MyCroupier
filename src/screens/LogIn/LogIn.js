@@ -24,7 +24,7 @@ export default function LogIn(props) {
   const { setInformacionUsuario, setOnline } = useContext(Context);
 
   const enviarDatos = async () => {
-    const url = 'http://54.237.169.52:8080/CroupierAPI/login';
+    const url = 'https://api.mycroupier.duckdns.org/CroupierAPI/login';
 
     if (!usuario || !contrasenya) {
       window.alert('Campos vacíos: '+ 'Rellena los campos vacíos.');

@@ -49,7 +49,7 @@ export default function Registro(props) {
 
       setLoading(true);
 
-      const url = 'http://54.237.169.52:8080/CroupierAPI/register';
+      const url = 'https://api.mycroupier.duckdns.org/CroupierAPI/register';
       const datos = {
         nombreUsuario: usuario,
         contrasenya: contrasenya,

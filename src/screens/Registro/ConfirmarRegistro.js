@@ -20,7 +20,7 @@ export default function ConfirmarRegistro(props) {
   const [loading, setLoading] = useState(false);
 
   const confRegistro = async () => {
-    const url = 'http://54.237.169.52:8080/CroupierAPI/confirmRegister';
+    const url = 'https://api.mycroupier.duckdns.org/CroupierAPI/confirmRegister';
 
     if (codigo == null || codigo == '') {
       window.alert('Campo vacío: '+ 'Introduzca el código de 7 dígitos.');

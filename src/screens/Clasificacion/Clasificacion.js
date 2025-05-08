@@ -33,7 +33,7 @@ export default function Clasificacion() {
                 setTimeout(() => reject(new Error("Tiempo de espera agotado")), timeout)
             );
 
-            const url = `http://54.237.169.52:8080/CroupierAPI/getRecords?token=${informacionUsuario.token}&nombreRecord=${selectedSection}`;
+            const url = `https://api.mycroupier.duckdns.org/CroupierAPI/getRecords?token=${informacionUsuario.token}&nombreRecord=${selectedSection}`;
 
             const data = await Promise.race([getData(url), timeoutPromise]);
 

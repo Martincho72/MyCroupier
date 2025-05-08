@@ -25,7 +25,7 @@ export default function RecuperarContrasenya(props) {
   };
 
   const recuperarContrasenya = async () => {
-    const url = 'http://54.237.169.52:8080/CroupierAPI/forgottenPassword';
+    const url = 'https://api.mycroupier.duckdns.org/CroupierAPI/forgottenPassword';
 
     if (!correo) {
       window.alert('Campo vacío: '+ 'Introduzca el correo electrónico asociado a su cuenta.');

@@ -1,7 +1,7 @@
 import getData from './services';
 
 export const cargarRecord = async (token, nombreRecord, id_usuario, setRecord) => {
-    const url = `http://54.237.169.52:8080/CroupierAPI/getRecordEspecifico?token=${token}&nombreRecord=${nombreRecord}&id_usuario=${id_usuario}`;
+    const url = `https://api.mycroupier.duckdns.org/CroupierAPI/getRecordEspecifico?token=${token}&nombreRecord=${nombreRecord}&id_usuario=${id_usuario}`;
     try {
         const data = await getData(url);
         console.log("datos: ", data);

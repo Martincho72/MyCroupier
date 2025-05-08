@@ -14,7 +14,7 @@ const HeaderMainMenu = (props) => {
       return;
     }
 
-    const url = `http://54.237.169.52:8080/CroupierAPI/logout?token=${informacionUsuario.token}`;
+    const url = `https://api.mycroupier.duckdns.org/CroupierAPI/logout?token=${informacionUsuario.token}`;
 
     try {
       const respuesta = await fetch(url, {
