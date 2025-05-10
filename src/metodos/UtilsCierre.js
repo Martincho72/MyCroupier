@@ -30,13 +30,13 @@ export const comprobarEmoji = (nombre) => {
       emoji = '😝';
       break;
     case 'Rafa':
-      emoji = '🫨';
+      emoji = '😱';
       break;
     case 'Berzo':
       emoji = '😎';
       break;
     case 'Laura':
-      emoji = '🫣';
+      emoji = '😲';
       break;
     default:
       emoji = 'Sandro';
