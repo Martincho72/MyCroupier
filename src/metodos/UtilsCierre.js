@@ -9,13 +9,10 @@ export const nombreAleatorio = (numeroAleatorio) => {
       nom = 'Rafa';
       break;
     case 2:
-      nom = 'Verzo';
+      nom = 'Berzo';
       break;
     case 3:
       nom = 'Laura';
-      break;
-    case 4:
-      nom = 'Goyo';
       break;
     default:
       nom = 'Sandro';
@@ -35,14 +32,11 @@ export const comprobarEmoji = (nombre) => {
     case 'Rafa':
       emoji = '🫨';
       break;
-    case 'Verzo':
+    case 'Berzo':
       emoji = '😎';
       break;
     case 'Laura':
       emoji = '🫣';
-      break;
-    case 'Goyo':
-      emoji = '🐻‍❄️';
       break;
     default:
       emoji = 'Sandro';
@@ -81,7 +75,7 @@ export const devolverMensaje = (nombre, tiempo) => {
         mensaje = 'Un poco más y me jubilo antes de que acabes, eh 😒';
       }
       break;
-    case 'Verzo':
+    case 'Berzo':
       if (tiempo < 140) {
         mensaje = 'Jolines que rápido, puedes irte ya a casa 😊';
       } else if (tiempo < 190) {
@@ -103,17 +97,6 @@ export const devolverMensaje = (nombre, tiempo) => {
         mensaje = 'Bien, aunque vas un poco chafando huevos 🐔';
       } else {
         mensaje = 'No está mal, ya lo harás más rápido a la próxima 😅';
-      }
-      break;
-    case 'Goyo':
-      if (tiempo < 140) {
-        mensaje = '¡Excelente, tú ser el guerrero del Dragón! 🐻‍❄️';
-      } else if (tiempo < 190) {
-        mensaje = 'Muy bien, tú ser el escudero del Dragón 🐻‍❄️';
-      } else if (tiempo < 240) {
-        mensaje = 'Bien, tú ser aprendiz del Dragón 🐻‍❄️';
-      } else {
-        mensaje = 'Tú no ser el guerrero del Dragón... 🐻‍❄️';
       }
       break;
     default:

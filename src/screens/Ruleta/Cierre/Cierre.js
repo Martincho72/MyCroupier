@@ -88,7 +88,7 @@ const Cierre = () => {
   const reiniciar = () => {
     let nuevoNombre = -1;
     do {
-      nuevoNombre = getRandomInt(0, 4);
+      nuevoNombre = getRandomInt(0, 3);
     } while (nuevoNombre == numeroAleatorio);
     let nom = nombreAleatorio(nuevoNombre);
     setNumeroAleatorio(nuevoNombre);
