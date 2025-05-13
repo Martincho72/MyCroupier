@@ -252,46 +252,50 @@ const Cierre = () => {
             </View>
           </View>
         </View>
-        <View style={styles.table}>
-          <View style={styles.headerRow}>
-            <Text style={styles.headerCell}>Tipo Ficha</Text>
-            <Text style={styles.headerCell}>Cantidad</Text>
-            <Text style={styles.headerCellInput}>Introducido</Text>
-          </View>
-          <FlatList
-            scrollEnabled={true}
-            data={fichas}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View style={styles.row}>
-                <Text style={styles.cell}>{item.valor}</Text>
-                <Text style={styles.cell}>{item.cantidad}</Text>
-                <View style={styles.inputContainer}>
-                  <DigitInputRow
-                    value={valoresIntroducidos[item.valor] || ''}
-                    onChange={(val) =>
-                      setValoresIntroducidos((prev) => ({
-                        ...prev,
-                        [item.valor]: val,
-                      }))
-                    }
-                    borderColor={bordes[item.valor]}
-                  />
+
+        <ScrollView horizontal={true} style={{ marginTop: 10, flexGrow: 0 }}>
+          <View style={styles.table}>
+            <View style={styles.headerRow}>
+              <Text style={styles.headerCell}>Tipo Ficha</Text>
+              <Text style={styles.headerCell}>Cantidad</Text>
+              <Text style={styles.headerCellInput}>Introducido</Text>
+            </View>
+            <FlatList
+              scrollEnabled={true}
+              data={fichas}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <View style={styles.row}>
+                  <Text style={styles.cell}>{item.valor}</Text>
+                  <Text style={styles.cell}>{item.cantidad}</Text>
+                  <View style={styles.inputContainer}>
+                    <DigitInputRow
+                      value={valoresIntroducidos[item.valor] || ''}
+                      onChange={(val) =>
+                        setValoresIntroducidos((prev) => ({
+                          ...prev,
+                          [item.valor]: val,
+                        }))
+                      }
+                      borderColor={bordes[item.valor]}
+                    />
+                  </View>
                 </View>
+              )}
+            />
+            <View style={styles.footerRow}>
+              <Text style={styles.footerCell}>Total:</Text>
+              <View style={styles.inputContainer}>
+                <DigitInputRow
+                  value={respuestaTotal}
+                  onChange={(val) => setRespuestaTotal(val)}
+                  borderColor={bordes['total'] || '#000'}
+                />
               </View>
-            )}
-          />
-          <View style={styles.footerRow}>
-            <Text style={styles.footerCell}>Total:</Text>
-            <View style={styles.inputContainer}>
-              <DigitInputRow
-                value={respuestaTotal}
-                onChange={(val) => setRespuestaTotal(val)}
-                borderColor={bordes['total'] || '#000'}
-              />
             </View>
           </View>
-        </View>
+        </ScrollView>
+
 
         <View
           style={{
@@ -318,18 +322,18 @@ const Cierre = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'white', },
-  mensaje: {fontSize: 25, textAlign: 'center', padding: 8, fontFamily: 'Merriweather-Light', },
-  tiempo: {fontSize: 20, color: 'blue', textAlign: 'center', fontFamily: 'Merriweather-Light',},
-  reloj: {fontSize: 24, color: 'blue', textAlign: 'center', padding: 2, fontFamily: 'Merriweather-SemiBold',},
-  tiempoRecord: { fontSize: 20, color: 'red', textAlign: 'center', fontFamily: 'Merriweather-Light',},
-  relojRecord: {fontSize: 24, color: 'red', textAlign: 'center', padding: 2, fontFamily: 'Merriweather-SemiBold',},
+  mensaje: { fontSize: 25, textAlign: 'center', padding: 8, fontFamily: 'Merriweather-Light', },
+  tiempo: { fontSize: 20, color: 'blue', textAlign: 'center', fontFamily: 'Merriweather-Light', },
+  reloj: { fontSize: 24, color: 'blue', textAlign: 'center', padding: 2, fontFamily: 'Merriweather-SemiBold', },
+  tiempoRecord: { fontSize: 20, color: 'red', textAlign: 'center', fontFamily: 'Merriweather-Light', },
+  relojRecord: { fontSize: 24, color: 'red', textAlign: 'center', padding: 2, fontFamily: 'Merriweather-SemiBold', },
   table: {
     minWidth: 630,
     borderWidth: 2,
     borderRadius: 5,
     borderColor: 'black',
-    marginTop: 5,
-    alignSelf: 'center',
+    marginLeft: 0,
+    marginRight: 0
   },
   headerRow: { flexDirection: 'row', backgroundColor: '#ddd', padding: 10 },
   headerCell: {
