@@ -45,12 +45,12 @@ const Cierre = () => {
   const [tiempoPersonal, setTiempoPersonal] = useState(0);
 
   const [fichas, setFichas] = useState([
-    { valor: 10000, cantidad: getRandomInt(0, 5) },
+    { valor: 10000, cantidad: getRandomInt(1, 5) },
     { valor: 500, cantidad: getRandomInt(5, 40) },
-    { valor: 100, cantidad: getRandomInt(15, 65) },
+    { valor: 100, cantidad: getRandomInt(15, 100) },
     { valor: 50, cantidad: getRandomInt(30, 100) },
     { valor: 25, cantidad: getRandomInt(30, 100) },
-    { valor: 10, cantidad: getRandomInt(40, 80) },
+    { valor: 10, cantidad: getRandomInt(40, 100) },
     { valor: 5, cantidad: getRandomInt(60, 250) },
     { valor: 2.5, cantidad: getRandomInt(60, 250) },
     { valor: 1.25, cantidad: getRandomInt(8, 30) },
@@ -105,7 +105,7 @@ const Cierre = () => {
       { valor: 100, cantidad: getRandomInt(15, 65) },
       { valor: 50, cantidad: getRandomInt(30, 100) },
       { valor: 25, cantidad: getRandomInt(30, 100) },
-      { valor: 10, cantidad: getRandomInt(40, 80) },
+      { valor: 10, cantidad: getRandomInt(40, 100) },
       { valor: 5, cantidad: getRandomInt(60, 250) },
       { valor: 2.5, cantidad: getRandomInt(60, 250) },
       { valor: 1.25, cantidad: getRandomInt(8, 30) },
