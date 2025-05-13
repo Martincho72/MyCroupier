@@ -8,7 +8,6 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  Alert,
 } from 'react-native';
 
 import {
@@ -19,7 +18,7 @@ import {
 } from '../../../metodos/UtilsCierre';
 
 import { cargarDato, guardarDato } from '../../../metodos/StorageUtils';
-
+import DigitInputRow from '../../../components/DigitInputRow';
 import { cargarRecord } from '../../../metodos/cargarRecord';
 import actualizarRecord from '../../../metodos/actualizarRecord';
 
@@ -29,7 +28,6 @@ const { Context } = Contexto;
 import Header from '../../../components/Header';
 
 const Cierre = () => {
-
   const [numeroAleatorio, setNumeroAleatorio] = useState(0);
   const [nombre, setNombre] = useState(nombreAleatorio(0));
   const [emoji, setEmoji] = useState(comprobarEmoji('Sandro'));
@@ -40,7 +38,7 @@ const Cierre = () => {
   const [tiempo, setTiempo] = useState(0);
   const [corriendo, setCorriendo] = useState(true);
   const [valoresIntroducidos, setValoresIntroducidos] = useState({});
-  const [respuestaTotal, setRespuestaTotal] = useState(0);
+  const [respuestaTotal, setRespuestaTotal] = useState('');
   const [bordes, setBordes] = useState({});
   const [tiempoPersonal, setTiempoPersonal] = useState(0);
 
@@ -73,17 +71,12 @@ const Cierre = () => {
   }, [corriendo]);
 
   const formatearTiempo = (segundos) => {
-    const min = Math.floor(segundos / 60)
-      .toString()
-      .padStart(2, '0');
+    const min = Math.floor(segundos / 60).toString().padStart(2, '0');
     const sec = (segundos % 60).toString().padStart(2, '0');
     return `${min}:${sec}`;
   };
 
-  const total = fichas.reduce(
-    (acc, ficha) => acc + ficha.valor * ficha.cantidad,
-    0
-  );
+  const total = fichas.reduce((acc, ficha) => acc + ficha.valor * ficha.cantidad, 0);
 
   const reiniciar = () => {
     let nuevoNombre = -1;
@@ -96,7 +89,7 @@ const Cierre = () => {
     setEmoji(comprobarEmoji(nom));
     setTiempo(0);
     setCorriendo(true);
-    setRespuestaTotal(0);
+    setRespuestaTotal('');
     setValoresIntroducidos({});
     setBordes({});
     setFichas([
@@ -118,25 +111,54 @@ const Cierre = () => {
 
     fichas.forEach((ficha) => {
       const respuestaCorrecta = (ficha.valor * ficha.cantidad).toFixed(2);
-      respuestas[ficha.valor] = respuestaCorrecta;
+      respuestas[ficha.valor] = respuestaCorrecta.padStart(9, "\u00A0");
       totalRespuesta += parseFloat(respuestaCorrecta);
     });
 
     setValoresIntroducidos(respuestas);
     setTiempo(900);
-    setRespuestaTotal(total.toFixed(2));
+    setRespuestaTotal(total.toFixed(2).padStart(9, "\u00A0"));
   };
 
   const comprobarRespuestas = () => {
     let todasCorrectas = true;
     let nuevosBordes = {};
 
-    fichas.forEach((ficha) => {
-      const valorIntroducido =
-        parseFloat(valoresIntroducidos[ficha.valor]) || 0;
-      const valorCorrecto = ficha.valor * ficha.cantidad;
+    if (Object.keys(valoresIntroducidos).length < 9) {
+      web.alert('Cuidado', 'Rellena todos los campos antes de comprobar');
+      return;
+    }
 
-      if (valorIntroducido == valorCorrecto) {
+    fichas.forEach((ficha) => {
+      console.log(valoresIntroducidos);
+      const arrayFichas = valoresIntroducidos[ficha.valor].toString();
+
+      let valorIntroducido;
+
+      if (arrayFichas.includes(",")) {
+        const nuevosValores = valoresIntroducidos[ficha.valor].map((valor, index,) => {
+          if (valor === "" || valor == null) {
+            return "";
+          }
+
+          if (index == 5) {
+            return valor + ".";
+          }
+
+          return valor;
+
+        })
+        console.log("NUEVOS VALORES: " + parseFloat(nuevosValores.toString().replace(/,/g, "").replace(/" "/), ""));
+        valorIntroducido = parseFloat(nuevosValores.toString().replace(/,/g, "").replace(/" "/), "");
+
+      } else {
+        valorIntroducido = parseFloat(valoresIntroducidos[ficha.valor]) || 0;
+      }
+      const valorCorrecto = parseFloat(ficha.valor * ficha.cantidad);
+      console.log(valorIntroducido);
+      console.log(valorCorrecto);
+
+      if (valorIntroducido === valorCorrecto) {
         nuevosBordes[ficha.valor] = 'green';
       } else {
         nuevosBordes[ficha.valor] = 'red';
@@ -144,7 +166,31 @@ const Cierre = () => {
       }
     });
 
-    if (respuestaTotal == total) {
+    console.log(respuestaTotal);
+    console.log(total);
+
+    let respuestaTotalConvertida = respuestaTotal.toString();
+    if (respuestaTotalConvertida.includes(",")) {
+      const nuevosValores = respuestaTotal.map((valor, index,) => {
+        if (valor === "" || valor == null) {
+          return "";
+        }
+
+        if (index == 5) {
+          return valor + ".";
+        }
+
+        return valor;
+
+      })
+      console.log("NUEVOS VALORES: " + parseFloat(nuevosValores.toString().replace(/,/g, "").replace(/" "/), ""));
+      respuestaTotalConvertida = parseFloat(nuevosValores.toString().replace(/,/g, "").replace(/" "/), "");
+    } else {
+      respuestaTotalConvertida = respuestaTotal
+    }
+
+
+    if (respuestaTotalConvertida == total) {
       nuevosBordes['total'] = 'green';
     } else {
       nuevosBordes['total'] = 'red';
@@ -153,7 +199,10 @@ const Cierre = () => {
 
     setBordes(nuevosBordes);
 
-    if (todasCorrectas && respuestaTotal == total) {
+
+
+
+    if (todasCorrectas && respuestaTotalConvertida == total) {
       if (tiempoPersonal > tiempo || tiempoPersonal == 0) {
         if (online) {
           actualizarRecord(nombreRecord, informacionUsuario.id_usuario, tiempo, informacionUsuario.token);
@@ -165,7 +214,7 @@ const Cierre = () => {
       setCorriendo(false);
       window.alert(nombre + ' dice: ' + message);
     } else {
-      window.alert('Error: '+ 'Revisa los campos en rojo');
+      window.alert('Error: ' + 'Revisa los campos en rojo');
     }
   };
 
@@ -218,21 +267,15 @@ const Cierre = () => {
                 <Text style={styles.cell}>{item.valor}</Text>
                 <Text style={styles.cell}>{item.cantidad}</Text>
                 <View style={styles.inputContainer}>
-                  <TextInput
-                    style={[
-                      styles.input,
-                      { borderColor: bordes[item.valor] || '#000' },
-                    ]}
-                    keyboardType="decimal-pad"
-                    placeholderTextColor="#888"
+                  <DigitInputRow
                     value={valoresIntroducidos[item.valor] || ''}
-                    onChangeText={(text) =>
+                    onChange={(val) =>
                       setValoresIntroducidos((prev) => ({
                         ...prev,
-                        [item.valor]: text.replace(',', '.'),
+                        [item.valor]: val,
                       }))
                     }
-                    placeholder="0.00"
+                    borderColor={bordes[item.valor]}
                   />
                 </View>
               </View>
@@ -241,17 +284,10 @@ const Cierre = () => {
           <View style={styles.footerRow}>
             <Text style={styles.footerCell}>Total:</Text>
             <View style={styles.inputContainer}>
-              <TextInput
-                style={[
-                  styles.input,
-                  { borderColor: bordes['total'] || '#000' },
-                ]}
-                keyboardType="decimal-pad"
+              <DigitInputRow
                 value={respuestaTotal}
-                onChangeText={(respuestaTotal) =>
-                  setRespuestaTotal(respuestaTotal)
-                }
-                placeholder="0.00"
+                onChange={(val) => setRespuestaTotal(val)}
+                borderColor={bordes['total'] || '#000'}
               />
             </View>
           </View>
@@ -281,36 +317,14 @@ const Cierre = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  mensaje: {
-    fontSize: 25, textAlign: 'center', padding: 8, fontFamily: 'Merriweather-Light',
-  },
-  tiempo: {
-    fontSize: 20, color: 'blue', textAlign: 'center', fontFamily: 'Merriweather-Light',
-  },
-  reloj: {
-    fontSize: 24,
-    color: 'blue',
-    textAlign: 'center',
-    padding: 2,
-    fontFamily: 'Merriweather-SemiBold',
-
-  },
-  tiempoRecord: {
-    fontSize: 20, color: 'red', textAlign: 'center', fontFamily: 'Merriweather-Light',
-  },
-  relojRecord: {
-    fontSize: 24,
-    color: 'red',
-    textAlign: 'center',
-    padding: 2,
-    fontFamily: 'Merriweather-SemiBold',
-  },
+  container: { flex: 1, backgroundColor: 'white', },
+  mensaje: {fontSize: 25, textAlign: 'center', padding: 8, fontFamily: 'Merriweather-Light', },
+  tiempo: {fontSize: 20, color: 'blue', textAlign: 'center', fontFamily: 'Merriweather-Light',},
+  reloj: {fontSize: 24, color: 'blue', textAlign: 'center', padding: 2, fontFamily: 'Merriweather-SemiBold',},
+  tiempoRecord: { fontSize: 20, color: 'red', textAlign: 'center', fontFamily: 'Merriweather-Light',},
+  relojRecord: {fontSize: 24, color: 'red', textAlign: 'center', padding: 2, fontFamily: 'Merriweather-SemiBold',},
   table: {
-    width: '90%',
+    minWidth: 630,
     borderWidth: 2,
     borderRadius: 5,
     borderColor: 'black',
