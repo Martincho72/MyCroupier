@@ -253,44 +253,48 @@ const Cierre = () => {
           </View>
         </View>
 
-        <ScrollView horizontal={true} style={{ marginTop: 10, flexGrow: 0 }}>
-          <View style={styles.table}>
-            <View style={styles.headerRow}>
-              <Text style={styles.headerCell}>Tipo Ficha</Text>
-              <Text style={styles.headerCell}>Cantidad</Text>
-              <Text style={styles.headerCellInput}>Introducido</Text>
-            </View>
-            <FlatList
-              scrollEnabled={true}
-              data={fichas}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => (
-                <View style={styles.row}>
-                  <Text style={styles.cell}>{item.valor}</Text>
-                  <Text style={styles.cell}>{item.cantidad}</Text>
-                  <View style={styles.inputContainer}>
-                    <DigitInputRow
-                      value={valoresIntroducidos[item.valor] || ''}
-                      onChange={(val) =>
-                        setValoresIntroducidos((prev) => ({
-                          ...prev,
-                          [item.valor]: val,
-                        }))
-                      }
-                      borderColor={bordes[item.valor]}
-                    />
+        <ScrollView horizontal={true}
+          style={{ marginTop: 10, flexGrow: 0, width: '100%' }}
+          contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+          <View style={{ minWidth: 530 }}>
+            <View style={styles.table}>
+              <View style={styles.headerRow}>
+                <Text style={styles.headerCell}>Tipo Ficha</Text>
+                <Text style={styles.headerCell}>Cantidad</Text>
+                <Text style={styles.headerCellInput}>Introducido</Text>
+              </View>
+              <FlatList
+                scrollEnabled={true}
+                data={fichas}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => (
+                  <View style={styles.row}>
+                    <Text style={styles.cell}>{item.valor}</Text>
+                    <Text style={styles.cell}>{item.cantidad}</Text>
+                    <View style={styles.inputContainer}>
+                      <DigitInputRow
+                        value={valoresIntroducidos[item.valor] || ''}
+                        onChange={(val) =>
+                          setValoresIntroducidos((prev) => ({
+                            ...prev,
+                            [item.valor]: val,
+                          }))
+                        }
+                        borderColor={bordes[item.valor]}
+                      />
+                    </View>
                   </View>
+                )}
+              />
+              <View style={styles.footerRow}>
+                <Text style={styles.footerCell}>Total:</Text>
+                <View style={styles.inputContainer}>
+                  <DigitInputRow
+                    value={respuestaTotal}
+                    onChange={(val) => setRespuestaTotal(val)}
+                    borderColor={bordes['total'] || '#000'}
+                  />
                 </View>
-              )}
-            />
-            <View style={styles.footerRow}>
-              <Text style={styles.footerCell}>Total:</Text>
-              <View style={styles.inputContainer}>
-                <DigitInputRow
-                  value={respuestaTotal}
-                  onChange={(val) => setRespuestaTotal(val)}
-                  borderColor={bordes['total'] || '#000'}
-                />
               </View>
             </View>
           </View>
@@ -321,26 +325,35 @@ const Cierre = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: 'white', },
-  mensaje: { fontSize: 25, textAlign: 'center', padding: 8, fontFamily: 'Merriweather-Light', },
-  tiempo: { fontSize: 20, color: 'blue', textAlign: 'center', fontFamily: 'Merriweather-Light', },
-  reloj: { fontSize: 24, color: 'blue', textAlign: 'center', padding: 2, fontFamily: 'Merriweather-SemiBold', },
-  tiempoRecord: { fontSize: 20, color: 'red', textAlign: 'center', fontFamily: 'Merriweather-Light', },
-  relojRecord: { fontSize: 24, color: 'red', textAlign: 'center', padding: 2, fontFamily: 'Merriweather-SemiBold', },
+  container: { flex: 1, backgroundColor: 'white' },
+  scrollContainer: { flex: 1, backgroundColor: '#fcfcfc' },
+  mensaje: { fontSize: 25, textAlign: 'center', padding: 8, fontFamily: 'Merriweather-Light' },
+  tiempo: { fontSize: 20, color: 'blue', textAlign: 'center', fontFamily: 'Merriweather-Light' },
+  reloj: { fontSize: 24, color: 'blue', textAlign: 'center', fontFamily: 'Merriweather-SemiBold' },
+  tiempoRecord: { fontSize: 20, color: 'red', textAlign: 'center', fontFamily: 'Merriweather-Light' },
+  relojRecord: { fontSize: 24, color: 'red', textAlign: 'center', fontFamily: 'Merriweather-SemiBold' },
+
   table: {
-    minWidth: 630,
+    minWidth: 530,
     borderWidth: 2,
     borderRadius: 5,
     borderColor: 'black',
-    marginLeft: 0,
-    marginRight: 0
   },
+
   headerRow: { flexDirection: 'row', backgroundColor: '#ddd', padding: 10 },
   headerCell: {
-    flex: 0.5, fontFamily: 'Merriweather-SemiBold', fontSize: 17,
-    textAlign: 'center'
+    width: 100,
+    fontSize: 17,
+    textAlign: 'center',
+    fontFamily: 'Merriweather-SemiBold',
   },
-  headerCellInput: { flex: 1, fontFamily: 'Merriweather-SemiBold', textAlign: 'center', fontSize: 17, },
+  headerCellInput: {
+    width: 280,
+    fontSize: 17,
+    textAlign: 'center',
+    fontFamily: 'Merriweather-SemiBold',
+  },
+
   row: {
     flexDirection: 'row',
     padding: 10,
@@ -348,34 +361,37 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
     alignItems: 'center',
   },
-  cell: { flex: 0.5, textAlign: 'center', fontFamily: 'Merriweather-Light', fontSize: 21 },
+  cell: {
+    width: 100,
+    fontSize: 21,
+    textAlign: 'center',
+    fontFamily: 'Merriweather-Light',
+  },
   footerRow: { flexDirection: 'row', padding: 10, backgroundColor: '#eee' },
-  footerCell: { flex: 1, textAlign: 'center', fontFamily: 'Merriweather-SemiBold', fontSize: 24 },
+  footerCell: {
+    width: 200,
+    fontSize: 24,
+    textAlign: 'center',
+    fontFamily: 'Merriweather-SemiBold',
+  },
   inputContainer: {
-    flex: 1,
+    width: 280,
     alignItems: 'center',
   },
-  input: {
-    fontSize: 22,
-    fontFamily: 'Merriweather-SemiBold',
-    borderWidth: 1,
-    borderColor: '#000',
-    padding: 2,
-    width: '80%',
-    textAlign: 'center',
+
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
   },
   button: {
     backgroundColor: 'black',
-    width: 112,
     padding: 10,
     borderRadius: 10,
+    width: 112,
     alignItems: 'center',
   },
-  buttonText: { color: 'white', fontSize: 16, fontFamily: 'Merriweather-Light', },
-  scrollContainer: {
-    flex: 1,
-    backgroundColor: '#fcfcfc',
-  },
+  buttonText: { color: 'white', fontSize: 16, fontFamily: 'Merriweather-Light' },
 });
 
 export default Cierre;
