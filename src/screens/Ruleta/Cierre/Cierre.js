@@ -19,6 +19,7 @@ import {
 
 import { cargarDato, guardarDato } from '../../../metodos/StorageUtils';
 import DigitInputRow from '../../../components/DigitInputRow';
+import DigitInputRowTotal from '../../../components/DigitInputRowTotal';
 import { cargarRecord } from '../../../metodos/cargarRecord';
 import actualizarRecord from '../../../metodos/actualizarRecord';
 
@@ -289,7 +290,7 @@ const Cierre = () => {
               <View style={styles.footerRow}>
                 <Text style={styles.footerCell}>Total:</Text>
                 <View style={styles.inputContainer}>
-                  <DigitInputRow
+                  <DigitInputRowTotal
                     value={respuestaTotal}
                     onChange={(val) => setRespuestaTotal(val)}
                     borderColor={bordes['total'] || '#000'}
