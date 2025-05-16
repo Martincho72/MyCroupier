@@ -11,13 +11,19 @@ export const actualizarRecord = async (nombreR, id_usu, record, tok) => {
   try {
     console.log('Enviando datos:', datos);
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 25000);
+
     const respuesta = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(datos),
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     const resultado = await respuesta.json();
 
@@ -32,7 +38,15 @@ export const actualizarRecord = async (nombreR, id_usu, record, tok) => {
 
   } catch (error) {
     console.error('Error en la petición:', error);
-    Alert.alert('Error al actualizar récord', error.message || 'Error inesperado.');
+    let mensaje = 'Error inesperado.';
+
+    if (error.name === 'AbortError') {
+      mensaje = 'La conexión tardó demasiado.';
+    } else if (error.message === 'Network request failed') {
+      mensaje = 'No se pudo conectar al servidor.';
+    }
+
+    Alert.alert('Error al actualizar récord', mensaje);
   }
 };
 export default actualizarRecord;
